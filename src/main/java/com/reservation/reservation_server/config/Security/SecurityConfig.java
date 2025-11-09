@@ -77,7 +77,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(AUTH_WHITELIST).permitAll()    // 인증 제외 경로 허용
                 .requestMatchers("/store/**").hasRole("STORE")  // /store/**는 STORE 권한만 허용
-                .requestMatchers("/user/**").hasAnyRole("USER","STORE")    // /user/**는 USER 권한만 허용
+                .requestMatchers("/user/**").hasAnyRole("USER","STORE")
+                .requestMatchers("/chat/**").hasAnyRole("USER","STORE")// /user/**는 USER 권한만 허용
                 .anyRequest().authenticated()                   // 그 외 모든 요청은 인증 필요
         );
 

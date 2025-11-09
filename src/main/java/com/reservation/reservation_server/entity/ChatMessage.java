@@ -1,5 +1,6 @@
 package com.reservation.reservation_server.entity;
 
+import com.reservation.reservation_server.common.SenderType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,4 +40,9 @@ public class ChatMessage {
     // 읽음 여부 (0: 안읽음, 1: 읽음)
     @Column(name = "read_status", nullable = false)
     private Boolean readStatus = false;
+
+    @Column(name = "sender_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private SenderType senderType;
+
 }

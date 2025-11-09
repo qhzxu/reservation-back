@@ -1,4 +1,4 @@
-package com.reservation.reservation_server.dto;
+package com.reservation.reservation_server.controller.chat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,4 +17,5 @@ public class ChatMessageDto {
     private String content;       // 메시지 내용
     private LocalDateTime createdAt;  // 메시지 전송 시간
     private Boolean readStatus;   // 읽음 여부 (선택사항)
+    private String senderType;
 }

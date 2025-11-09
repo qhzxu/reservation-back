@@ -34,6 +34,8 @@ public class QChatMessage extends EntityPathBase<ChatMessage> {
 
     public final NumberPath<Long> senderId = createNumber("senderId", Long.class);
 
+    public final EnumPath<com.reservation.reservation_server.common.SenderType> senderType = createEnum("senderType", com.reservation.reservation_server.common.SenderType.class);
+
     public QChatMessage(String variable) {
         this(ChatMessage.class, forVariable(variable), INITS);
     }
