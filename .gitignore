@@ -1,95 +1,91 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/
-.env
-
-### 로그, 캐시, 운영 관련 ###
-*.log                     # 로그 파일
-logs/
-*.cache                   # 캐시 파일
-*.tmp                     # 임시 파일
-*.bak                     # 백업 파일
-*.swp                     # vim, 일부 편집기 임시파일
-*.pid                     # 서버 PID 파일
-
-### 운영/배포 파일 ###
-.env                      # 환경변수 파일 (JWT secret 등 포함 시 위험)
-*.env.*                   # 환경별 env 파일 (e.g. .env.dev)
-docker-compose.override.yml
-docker-compose.*.yml      # docker 파일
-Dockerfile
-compose.yml
-.DS_Store                 # MacOS용 시스템 파일
-Thumbs.db                 # Windows용
-
-# MySQL runtime files
-mysql_data/mysql.sock
-mysql_data/ib_buffer_pool
-mysql_data/binlog.index
-mysql_data/auto.cnf
-
-
-### 빌드 도구 ###
-build/
-target/                   # Maven 있을 경우
+# =========================
+# Build tools
+# =========================
 .gradle/
+build/
+target/
 !gradle/wrapper/gradle-wrapper.jar
 
-### 테스트 관련 ###
-test-output/
-jacoco.exec               # Code coverage 도구
-coverage/
-hs_err_pid*.log           # JVM 충돌 로그
-
-### IntelliJ 플러그인 ###
+# =========================
+# IDEs
+# =========================
+# IntelliJ
 .idea/
 *.iml
 *.iws
 *.ipr
 out/
-*.class                   # 컴파일된 class 파일
 
-### Spring ###
-**/application-*.yml      # dev, prod 환경파일 (선택적으로)
-**/application-*.properties
+# Eclipse / STS
+.classpath
+.project
+.settings/
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+bin/
 
-# Spring Boot configuration files
-application.yml
-application.properties
+# NetBeans
+/nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
+# VS Code
+.vscode/
 
+# =========================
+# Environment / Config
+# =========================
 .env
+*.env.*
+application.yml
+application-*.yml
+application.properties
+application-*.properties
+
+# =========================
+# Docker
+# =========================
+Dockerfile
+docker-compose*.yml
+docker-compose.override.yml
+compose.yml
+
+# =========================
+# Runtime / Logs
+# =========================
+*.log
+logs/
+*.cache
+*.tmp
+*.bak
+*.swp
+*.pid
+*.class
+
+# =========================
+# MySQL runtime / secret files
+# =========================
+mysql_data/
+mysql_data/*.sock
+mysql_data/binlog.*
+mysql_data/ib_buffer_pool
+mysql_data/auto.cnf
+mysql_data/ca-key.pem
+
+# =========================
+# OS / Misc
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Test / Coverage
+# =========================
+test-output/
+jacoco.exec
+coverage/
+hs_err_pid*.log
