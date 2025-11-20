@@ -1,6 +1,7 @@
 package com.reservation.reservation_server.serviceImpl.user;
 
 import com.reservation.reservation_server.common.ServiceStatus;
+import com.reservation.reservation_server.config.Exception.ProductNotFoundException;
 import com.reservation.reservation_server.dto.CategoryDto;
 import com.reservation.reservation_server.dto.ProductDto;
 import com.reservation.reservation_server.dto.product.ProductRequestDto;
@@ -13,10 +14,12 @@ import com.reservation.reservation_server.repository.UserProductRepository;
 import com.reservation.reservation_server.service.store.StoreProductService;
 import com.reservation.reservation_server.service.user.UserProductService;
 import jakarta.transaction.Transactional;
+import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,11 +51,12 @@ public class UserProductServiceImpl implements UserProductService {
 
     @Transactional
     public ProductResponseDto getDetailProduct(Long productId) {
-        Product product = userProductRepository.findAllByProductId(productId);
+        Product product = userProductRepository.findById(productId)
+                .orElseThrow(ProductNotFoundException :: new);
+//         테스트용
+//        Product product = userProductRepository.findById(productId)
+//                .orElseThrow(() -> new RuntimeException("product not found"));
 
-        if (product == null) {
-            throw new RuntimeException("상품을 찾을 수 없습니다.");
-        }
 
         return ProductResponseDto.fromEntity(product);
     }

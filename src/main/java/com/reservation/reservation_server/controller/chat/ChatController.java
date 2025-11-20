@@ -6,9 +6,11 @@ import com.reservation.reservation_server.config.Security.JwtUtil;
 import com.reservation.reservation_server.dto.ChatRoomDto;
 import com.reservation.reservation_server.entity.ChatMessage;
 import com.reservation.reservation_server.entity.ChatRoom;
+import com.reservation.reservation_server.entity.Store;
 import com.reservation.reservation_server.entity.User;
 import com.reservation.reservation_server.repository.ChatMessageRepository;
 import com.reservation.reservation_server.repository.ChatRoomRepository;
+import com.reservation.reservation_server.repository.StoreRepository;
 import com.reservation.reservation_server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ public class ChatController {
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMessageRepository chatMessageRepository;
     private final UserRepository userRepository;
+    private final StoreRepository storeRepository;
 
     private final JwtUtil jwtUtil;
 
@@ -35,6 +38,7 @@ public class ChatController {
     public List<ChatRoomDto> getChatRooms(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         Long userId = customUserDetails.getId();
         Long storeId = 22L;
+
 
         ChatRoom room = chatRoomRepository.findByStoreIdAndUserId(storeId, userId)
                 .orElseGet(() -> {
@@ -50,6 +54,9 @@ public class ChatController {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
 
+        Store store = storeRepository.findByStoreId(storeId)
+                .orElseThrow(() -> new RuntimeException("상점을 찾을 수 없습니다"));
+
 //        String lastContent = lastMessage != null ? lastMessage.getContent() : "";
 
         ChatRoomDto dto = new ChatRoomDto(
@@ -57,10 +64,10 @@ public class ChatController {
                 room.getUserId(),
                 user.getEmail(),
                 user.getName(),
-
                 null,
                 unreadCount,
-                room.getStoreId()
+                room.getStoreId(),
+                store.getName()
         );
 
         // 단일 객체도 리스트로 감싸서 반환
@@ -119,7 +126,8 @@ public class ChatController {
                     user.getName(),
                     null, // lastMessage 자리
                     unreadCount,
-                    room.getStoreId()
+                    room.getStoreId(),
+                    null
             );
         }).collect(Collectors.toList());
     }
