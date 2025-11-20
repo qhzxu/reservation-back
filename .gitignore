@@ -51,8 +51,17 @@ logs/
 *.env.*                   # 환경별 env 파일 (e.g. .env.dev)
 docker-compose.override.yml
 docker-compose.*.yml      # docker 파일
+Dockerfile
+compose.yml
 .DS_Store                 # MacOS용 시스템 파일
 Thumbs.db                 # Windows용
+
+# MySQL runtime files
+mysql_data/mysql.sock
+mysql_data/ib_buffer_pool
+mysql_data/binlog.index
+mysql_data/auto.cnf
+
 
 ### 빌드 도구 ###
 build/

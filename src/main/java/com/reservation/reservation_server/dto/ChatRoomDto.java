@@ -18,4 +18,5 @@ public class ChatRoomDto {
     private String lastMessage;   // 마지막 메시지 내용
     private long unreadCount;     // 안 읽은 메시지 수
     private Long storeId;
+    private String storeName;
 }

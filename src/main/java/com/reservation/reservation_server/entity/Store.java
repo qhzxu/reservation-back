@@ -51,10 +51,8 @@ public class Store {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-
     @Column(name = "is_active")
-    private Boolean isActive = true;  // Boolean으로 바꾸고 초기값 true
-
+    private Boolean isActive = true;
 
     @OneToMany(mappedBy = "store")
     private List<StoreOperationHour> operationHours;
