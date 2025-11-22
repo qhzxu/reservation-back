@@ -76,6 +76,7 @@ public class SecurityConfig {
         // 인가 설정 - 인증이 필요한 경로 설정
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(AUTH_WHITELIST).permitAll()    // 인증 제외 경로 허용
+                .requestMatchers("/redis/**").permitAll()
                 .requestMatchers("/store/**").hasRole("STORE")  // /store/**는 STORE 권한만 허용
                 .requestMatchers("/user/**").hasAnyRole("USER","STORE")
                 .requestMatchers("/chat/**").hasAnyRole("USER","STORE")// /user/**는 USER 권한만 허용

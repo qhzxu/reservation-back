@@ -1,7 +1,9 @@
 package com.reservation.reservation_server.serviceImpl.auth;
 
 import com.reservation.reservation_server.common.RoleType;
+import com.reservation.reservation_server.config.RedisService;
 import com.reservation.reservation_server.config.Security.JwtUtil;
+import com.reservation.reservation_server.config.TokenService;
 import com.reservation.reservation_server.dto.CustomUserInfoDto;
 import com.reservation.reservation_server.dto.LoginRequestDto;
 import com.reservation.reservation_server.dto.UserSignupRequestDto;
@@ -22,17 +24,19 @@ import org.springframework.stereotype.Service;
 public class UserAuthServiceImpl implements UserAuthService {
 
 
+    private final TokenService tokenService;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ModelMapper modelMapper;
     private final JwtUtil jwtUtil;
 
     @Autowired
-    public UserAuthServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper, JwtUtil jwtUtil) {
+    public UserAuthServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper, JwtUtil jwtUtil, TokenService tokenService) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.modelMapper = modelMapper;
         this.jwtUtil = jwtUtil;
+        this.tokenService = tokenService;
     }
 
 
@@ -75,6 +79,10 @@ public class UserAuthServiceImpl implements UserAuthService {
 
         CustomUserInfoDto info = modelMapper.map(user, CustomUserInfoDto.class);
         String token = jwtUtil.createAccessToken(info);
+        String refreshToken = jwtUtil.createRefreshToken(info);
+
+        //redis
+        tokenService.storeRefreshToken(user.getUserId(), refreshToken);
 
         return UserLoginResponseDto.builder()
                 .accessToken(token)
@@ -82,6 +90,7 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .userName(user.getName())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .refreshToken(refreshToken)
                 .build();
     }
 

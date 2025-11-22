@@ -55,6 +55,7 @@ public class StoreAuthController {
         body.put("email", loginResponse.getEmail());
         body.put("storeId", loginResponse.getStoreId());
         body.put("role", loginResponse.getRole());
+        body.put("refreshToken", loginResponse.getRefreshToken());
 
         return ResponseEntity.ok(body);
     }

@@ -25,14 +25,17 @@ public class JwtUtil {
 
     private final Key key;
     private final long accessTokenExpTime;
+    private final long refreshTokenExpTime;
 
     public JwtUtil(
             @Value("${JWT_SECRET}") final String secretKey,
-            @Value("${JWT_EXPIRATION}") final long accessTokenExpTime)
+            @Value("${JWT_EXPIRATION}") final long accessTokenExpTime,
+            @Value("${JWT_REFRESH_EXPIRATION}") final long refreshTokenExpTime)
     {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.accessTokenExpTime = accessTokenExpTime;
+        this.refreshTokenExpTime = refreshTokenExpTime;
     }
 
     /**
@@ -127,4 +130,26 @@ public class JwtUtil {
             return e.getClaims();
         }
     }
+
+
+    /**
+     * Refresh Token 생성
+     * @param info 로그인 사용자 정보
+     * @return Refresh Token
+     */
+    public String createRefreshToken(CustomUserInfoDto info) {
+        Claims claims = Jwts.claims();
+        claims.put("userId", info.getId());
+
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime tokenValidity = now.plusSeconds(refreshTokenExpTime);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(Date.from(now.toInstant()))
+                .setExpiration(Date.from(tokenValidity.toInstant()))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
 }

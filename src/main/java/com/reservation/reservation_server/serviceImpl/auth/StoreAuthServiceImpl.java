@@ -2,6 +2,7 @@ package com.reservation.reservation_server.serviceImpl.auth;
 
 import com.reservation.reservation_server.common.RoleType;
 import com.reservation.reservation_server.config.Security.JwtUtil;
+import com.reservation.reservation_server.config.TokenService;
 import com.reservation.reservation_server.dto.CustomUserInfoDto;
 import com.reservation.reservation_server.dto.LoginRequestDto;
 import com.reservation.reservation_server.dto.StoreLoginResponseDto;
@@ -24,17 +25,19 @@ import org.springframework.stereotype.Service;
 public class StoreAuthServiceImpl implements StoreAuthService {
 
 
+    private final TokenService tokenService;
     private final StoreRepository storeRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ModelMapper modelMapper;
     private final JwtUtil jwtUtil;
 
     @Autowired
-    public StoreAuthServiceImpl(StoreRepository storeRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper, JwtUtil jwtUtil) {
+    public StoreAuthServiceImpl(StoreRepository storeRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper, JwtUtil jwtUtil, TokenService tokenService) {
         this.storeRepository = storeRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.modelMapper = modelMapper;
         this.jwtUtil = jwtUtil;
+        this.tokenService = tokenService;
 
     }
 
@@ -46,6 +49,7 @@ public class StoreAuthServiceImpl implements StoreAuthService {
         if (storeRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
+
 
         /**
          * 비밀번호 해시 처리
@@ -86,10 +90,15 @@ public class StoreAuthServiceImpl implements StoreAuthService {
         // JWT 토큰 생성
         CustomUserInfoDto info = modelMapper.map(store, CustomUserInfoDto.class);
         String accessToken = jwtUtil.createAccessToken(info); // JWT 토큰 String 반환
+        String refreshToken = jwtUtil.createRefreshToken(info);
+
+        //redis
+        tokenService.storeRefreshToken(store.getStoreId(), refreshToken);
 
         // StoreLoginResponseDto에 담아서 반환
         StoreLoginResponseDto response = new StoreLoginResponseDto(
                 accessToken,
+                refreshToken,
                 store.getStoreId(),
                 store.getName(),
                 store.getEmail(),

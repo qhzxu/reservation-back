@@ -10,6 +10,13 @@ spring:
   application:
     name: reservation-api
 
+  data:
+    redis:
+      host: redis
+      port: 6379
+      timeout: 6000
+
+
   config:
     import: optional:file:.env[.properties]
 
@@ -37,17 +44,17 @@ spring:
     restart:
       enabled: true
 
-  redis:
-    host: ${REDIS_HOST}
-    port: ${REDIS_PORT}
 
 jwt:
   secret: ${JWT_SECRET}
   expiration-time: ${JWT_EXPIRATION}
 
-external:
-  api:
-    library-key: ${LIBRARY_API_KEY}
-    consumer-key: ${CONSUMER_KEY}
-    consumer-secret: ${CONSUMER_SECRET_KEY}
-    base-url: https://korea-webtoon-api-cc7dda2f0d77.herokuapp.com/
+
+logging:
+  level:
+    root: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.springframework.security: DEBUG
+
+
+

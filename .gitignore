@@ -61,6 +61,11 @@ mysql_data/mysql.sock
 mysql_data/ib_buffer_pool
 mysql_data/binlog.index
 mysql_data/auto.cnf
+# MySQL 데이터
+mysql_data/
+# MySQL 데이터
+mysql_data/**
+/mysql_data/
 
 
 ### 빌드 도구 ###

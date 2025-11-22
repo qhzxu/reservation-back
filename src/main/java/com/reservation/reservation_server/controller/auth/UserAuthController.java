@@ -54,6 +54,7 @@ public class UserAuthController {
         body.put("email", loginResponse.getEmail());
         body.put("userId", loginResponse.getUserId());
         body.put("role", loginResponse.getRole());
+        body.put("refreshToken", loginResponse.getRefreshToken());
 
         return ResponseEntity.ok(body);
     }

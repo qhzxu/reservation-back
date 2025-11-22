@@ -10,6 +10,7 @@ import lombok.*;
 @Builder
 public class StoreLoginResponseDto {
     private String accessToken;
+    private String refreshToken;
     private Long storeId;
     private String storeName;
     private String email;
