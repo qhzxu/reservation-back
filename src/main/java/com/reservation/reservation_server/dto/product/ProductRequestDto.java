@@ -18,6 +18,6 @@ public class ProductRequestDto {
     private String description;
     private Long categoryId;
     private Integer price;
-
+    private String imageUrl;
 
 }

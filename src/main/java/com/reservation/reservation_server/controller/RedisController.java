@@ -1,6 +1,6 @@
 package com.reservation.reservation_server.controller;
 
-import com.reservation.reservation_server.config.RedisService;
+import com.reservation.reservation_server.config.Redis.RedisService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

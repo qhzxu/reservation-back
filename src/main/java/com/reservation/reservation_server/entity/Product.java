@@ -42,6 +42,10 @@ public class Product {
     @Column(name = "status")
     private ServiceStatus status;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
+
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;

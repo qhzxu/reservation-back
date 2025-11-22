@@ -1,4 +1,4 @@
-package com.reservation.reservation_server.config;
+package com.reservation.reservation_server.config.Redis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -20,6 +20,8 @@ public class ProductResponseDto {
     private LocalDateTime updatedAt;
     private Long storeId;
     private String status;
+//    private String imageUrl;
+
 
     public static ProductResponseDto fromEntity(Product product) {
         return ProductResponseDto.builder()
@@ -34,6 +36,7 @@ public class ProductResponseDto {
                 .status(product.getStatus().name())
                 .createdAt(product.getCreatedAt())
                 .updatedAt(product.getUpdatedAt())
+//                .imageUrl(product.getImageUrl())
                 .build();
     }
 

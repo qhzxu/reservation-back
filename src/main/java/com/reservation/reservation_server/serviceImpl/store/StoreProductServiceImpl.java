@@ -65,6 +65,7 @@ public class StoreProductServiceImpl implements StoreProductService {
         product.setName(requestDto.getName());
         product.setPrice(requestDto.getPrice());
         product.setDescription(requestDto.getDescription());
+        product.setImageUrl(requestDto.getImageUrl());
 
         // 카테고리도 엔티티로 세팅
         if (requestDto.getCategoryId() != null) {

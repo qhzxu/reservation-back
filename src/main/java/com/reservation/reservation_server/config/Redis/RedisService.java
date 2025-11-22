@@ -1,4 +1,4 @@
-package com.reservation.reservation_server.config;
+package com.reservation.reservation_server.config.Redis;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

@@ -2,13 +2,12 @@ package com.reservation.reservation_server.serviceImpl.auth;
 
 import com.reservation.reservation_server.common.RoleType;
 import com.reservation.reservation_server.config.Security.JwtUtil;
-import com.reservation.reservation_server.config.TokenService;
+import com.reservation.reservation_server.config.Redis.TokenService;
 import com.reservation.reservation_server.dto.CustomUserInfoDto;
 import com.reservation.reservation_server.dto.LoginRequestDto;
 import com.reservation.reservation_server.dto.StoreLoginResponseDto;
 import com.reservation.reservation_server.dto.StoreSignupRequestDto;
 import com.reservation.reservation_server.entity.Store;
-import com.reservation.reservation_server.entity.User;
 import com.reservation.reservation_server.repository.StoreRepository;
 import com.reservation.reservation_server.service.auth.StoreAuthService;
 import jakarta.transaction.Transactional;
@@ -93,7 +92,7 @@ public class StoreAuthServiceImpl implements StoreAuthService {
         String refreshToken = jwtUtil.createRefreshToken(info);
 
         //redis
-        tokenService.storeRefreshToken(store.getStoreId(), refreshToken);
+//        tokenService.storeRefreshToken(store.getStoreId(), refreshToken);
 
         // StoreLoginResponseDto에 담아서 반환
         StoreLoginResponseDto response = new StoreLoginResponseDto(

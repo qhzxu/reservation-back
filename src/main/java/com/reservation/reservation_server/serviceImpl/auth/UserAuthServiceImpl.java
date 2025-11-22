@@ -1,9 +1,8 @@
 package com.reservation.reservation_server.serviceImpl.auth;
 
 import com.reservation.reservation_server.common.RoleType;
-import com.reservation.reservation_server.config.RedisService;
 import com.reservation.reservation_server.config.Security.JwtUtil;
-import com.reservation.reservation_server.config.TokenService;
+import com.reservation.reservation_server.config.Redis.TokenService;
 import com.reservation.reservation_server.dto.CustomUserInfoDto;
 import com.reservation.reservation_server.dto.LoginRequestDto;
 import com.reservation.reservation_server.dto.UserSignupRequestDto;
