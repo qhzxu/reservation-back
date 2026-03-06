@@ -81,7 +81,7 @@ public class UserReservationServiceImpl implements UserReservationService {
         reservationHdr.setUserId(dto.getUserId());
         reservationHdr.setProductId(dto.getProductId());
         reservationHdr.setStoreId(dto.getStoreId());
-        reservationHdr.setStatus(ReservationStatus.CONFIRMED);
+        reservationHdr.setStatus(ReservationStatus.PENDING);
         reservationHdr.setIsActive(true);
 
 

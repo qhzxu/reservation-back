@@ -29,7 +29,7 @@ public class StoreReservationServiceImpl implements StoreReservationService {
     @Override
     public List<ReservationResponseDto> getReservations(Long storeId) {
         List<ReservationHdr> reservations = reservationRepository.findAllByStore_StoreId(storeId);
-
+        // N+1 발생 가능
         System.out.println(reservations.size() + "예약 건수");
 
 
