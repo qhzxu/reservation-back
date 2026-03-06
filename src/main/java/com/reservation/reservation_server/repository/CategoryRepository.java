@@ -14,6 +14,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     List<Category> findAllBy();
 
+
     // storeId가 아닌 Store 엔티티로 조회
     List<Category> findAllByStoreAndIsActiveTrue(Store store);
 
